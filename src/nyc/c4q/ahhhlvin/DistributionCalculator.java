@@ -42,7 +42,6 @@ public class DistributionCalculator {
                 if (encoded <= 97 || encoded >= 122) {
                     continue;
                 } else if (distMap.containsKey(currentChar)) {
-                    distMap.get(currentChar);
                     distMap.put(currentChar, distMap.get(currentChar)+1);
                     count++;
                 } else {
