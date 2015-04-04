@@ -15,12 +15,8 @@ public class WebPageSanitizer
 
     public static void main(String[] args)
     {
-        Scanner input = new Scanner(System.in);
-
-
-        System.out.println("Please input the URL of a website to render: ");
-        String html = input.nextLine();
-        StringSanitize(webToURL(html));
+        String html = webToURL("http://www.google.com");
+        System.out.println(StringSanitize(html));
 
     }
 
@@ -29,22 +25,26 @@ public class WebPageSanitizer
     {
 
         int firstIndex;
-        int secondIndex = 0;
-        String fin = "";
+        int secondIndex;
 
+        // stores the amount of times "<script" appears in the HTML string
         int wordCount = HTTP.countWords(html, "<script");
 
 
+        // for loop runs for as many times as the "<script" appears in the HTML string
         for(int i = 0; i < wordCount; i++)
         {
 
-            firstIndex = html.indexOf("<script", secondIndex);
+            firstIndex = html.indexOf("<script");
             secondIndex = html.indexOf("</script>", firstIndex);
-            String removePart = html.substring(firstIndex, secondIndex);
-            String removed = html.replaceAll(removePart, "");
-            fin += removed;
+
+            // creates a variable, "removePart", that contains a substring including the beginning and end tags, along with whatever is encapsulated by the 'firstIndex' and 'secondIndex' to allow for easier replacement/removal
+            String removePart = html.substring(firstIndex, secondIndex) + 9;
+            // replaces all the tags and what is encapsulated by the tags with nothing and saves that back as the original entered string HTML variable that is ultimately returned
+            html = html.replace(removePart, "");
+
         }
-        return fin;
+        return html;
     }
 
     public static String webToURL(String webPage)
@@ -52,6 +52,7 @@ public class WebPageSanitizer
         URL webUrl = HTTP.stringToURL(webPage);
         String str = HTTP.get(webUrl);
 
+        // converts input of a URL string to an actual URL, gets the HTML code for that URL and then stores it as a variable, "str"
         return str;
     }
 

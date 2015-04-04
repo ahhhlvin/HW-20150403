@@ -11,8 +11,9 @@ package nyc.c4q.ahhhlvin;
     import java.net.MalformedURLException;
     import java.net.URL;
     import java.net.URLConnection;
+    import java.util.Scanner;
 
-    /**
+/**
      * Simplified API for HTTP.
      */
     public class HTTP {
@@ -33,7 +34,7 @@ package nyc.c4q.ahhhlvin;
         }
 
 
-        public static int countWords(String text, String word) {
+        public static int countWord(String text, String word) {
             text = text.toLowerCase();
             word = word.toLowerCase();
 
@@ -42,6 +43,22 @@ package nyc.c4q.ahhhlvin;
                  i != -1;
                  i = text.indexOf(word, i + word.length()))
                 count++;
+            return count;
+        }
+
+        public static int countWords(String html, String word) {
+            Scanner doc = new Scanner(html);
+
+            String current;
+            int count = 0;
+
+            while (doc.hasNext()) {
+                doc.useDelimiter(">");
+                current = doc.next();
+                if (current.contains(word))
+                    count++;
+            }
+
             return count;
         }
 
@@ -63,6 +80,16 @@ package nyc.c4q.ahhhlvin;
                 return null;
             }
         }
+
+
+    public static String webToURL(String webPage)
+    {
+        URL webUrl = HTTP.stringToURL(webPage);
+        String str = HTTP.get(webUrl);
+
+        // converts input of a URL string to an actual URL, gets the HTML code for that URL and then stores it as a variable, "str"
+        return str;
+    }
 
         /**
          * Retrieves the body of a URL.
