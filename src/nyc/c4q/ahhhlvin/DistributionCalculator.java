@@ -39,7 +39,7 @@ public class DistributionCalculator {
                 char currentChar = word.charAt(i);
                 int encoded = (int) currentChar;
 
-                if (encoded <= 97 || encoded >= 122) {
+                if (encoded < 97 || encoded > 122) {
                     continue;
                 } else if (distMap.containsKey(currentChar)) {
                     distMap.put(currentChar, distMap.get(currentChar)+1);
@@ -65,12 +65,12 @@ public class DistributionCalculator {
 
     // I created a separate method here that converts the number of times each character appears into a percentage
     public static String percentMaker(double single, double total) {
+
         double percentage = (((single / total))*100);
         String result = percentage + "%";
         return result;
+
     }
-
-
 
 
 }

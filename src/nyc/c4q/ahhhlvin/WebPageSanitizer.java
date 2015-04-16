@@ -39,7 +39,7 @@ public class WebPageSanitizer
             secondIndex = html.indexOf("</script>", firstIndex);
 
             // creates a variable, "removePart", that contains a substring including the beginning and end tags, along with whatever is encapsulated by the 'firstIndex' and 'secondIndex' to allow for easier replacement/removal
-            String removePart = html.substring(firstIndex, secondIndex) + 9;
+            String removePart = html.substring(firstIndex, secondIndex +9);
             // replaces all the tags and what is encapsulated by the tags with nothing and saves that back as the original entered string HTML variable that is ultimately returned
             html = html.replace(removePart, "");
 
